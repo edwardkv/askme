@@ -6,7 +6,5 @@ class Question < ApplicationRecord
   validates :text, :user, presence: true
 
 
-
-
 end
 
