@@ -8,6 +8,13 @@ class User < ApplicationRecord
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true
 
+  #Проверка формата электронной почты пользователя
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "email format" }
+  #проверка максимальной длины юзернейма пользователя (не больше 40 символов)
+  validates :username, length: { maximum: 40 }
+  #Проверка формата юзернейма пользователя (только латинские буквы, цифры, и знак _)
+  validates :username, format: { with: /\A[a-z0-9_]+\z/i, message: "email format" }
+
   #пароль
   attr_accessor :password
 
