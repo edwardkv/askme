@@ -26,6 +26,13 @@ class User < ApplicationRecord
 
   before_save :encrypt_password
 
+  before_validation :before_validation
+
+  #базу юзернеймы пользователей попадали только в нижнем регистре
+  def before_validation
+    self.username = username.downcase
+  end
+
   def encrypt_password
     if password.present?
       # Создаем т.н. «соль» — случайная строка, усложняющая задачу хакерам по
