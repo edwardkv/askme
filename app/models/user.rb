@@ -10,19 +10,14 @@ class User < ApplicationRecord
 
   has_many :questions
 
-  # перед валидацией переводим username в нижний регистр и т.п.
-  before_validation :normalize_user
-
   #проверка что email и username не пустые
   validates :email, :username, presence: true
   # проверка формата электронной почты пользователя, уникальный email(без учета регистра)
-  validates :email, format: { with: EMAIL_REGEXP }, uniqueness: { case_sensitive: false }
-
-  #проверка максимальной длины юзернейма пользователя (не больше 40 символов)
-  validates :username, length: { maximum: 40 }
+  validates :email, format: { with: EMAIL_REGEXP }, uniqueness: true
 
   # проверка формата юзернейма пользователя (только латинские буквы, цифры, и знак _) и на уникальность(без учета регистра)
-  validates :username, format: { with: USERNAME_REGEXP }, uniqueness: { case_sensitive: false }
+  # проверка максимальной длины юзернейма пользователя (не больше 40 символов)
+  validates :username, format: { with: USERNAME_REGEXP }, uniqueness: true, length: { maximum: 40 }
 
   # валидация будет проходить только при создании нового юзера
   validates :password, presence: true, on: :create
@@ -30,6 +25,9 @@ class User < ApplicationRecord
   # подтверждения пароля
   validates :password, confirmation: true
 
+  # перед валидацией переводим username в нижний регистр и т.п.
+  before_validation :normalize_user
+  # шифрование пароля
   before_save :encrypt_password
 
   # Основной метод для аутентификации юзера (логина). Проверяет email и пароль,
@@ -43,7 +41,7 @@ class User < ApplicationRecord
     return nil unless user.present?
 
     # Формируем хэш пароля из того, что передали в метод
-    hashed_password = User.hash_to_string(
+    hashed_password = hash_to_string(
         OpenSSL::PKCS5.pbkdf2_hmac(password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST)
     )
 
@@ -58,9 +56,11 @@ class User < ApplicationRecord
 
   private
 
-  #базу юзернеймы пользователей попадали только в нижнем регистре
+  #в базу username пользователей попадали только в нижнем регистре
+  #email в нижнем регистре
   def normalize_user
     self.username = username.downcase unless username.nil?
+    self.email = email.downcase unless email.nil?
   end
 
   def encrypt_password
@@ -70,12 +70,12 @@ class User < ApplicationRecord
       #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
       # одного юзера, нельзя разгадать, по какому принципу
       # зашифрованы пароли остальных пользователей
-      self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
+      self.password_salt = hash_to_string(OpenSSL::Random.random_bytes(16))
 
       # Создаем хэш пароля — длинная уникальная строка, из которой невозможно
       # восстановить исходный пароль. Однако, если правильный пароль у нас есть,
       # мы легко можем получить такую же строку и сравнить её с той, что в базе.
-      self.password_hash = User.hash_to_string(
+      self.password_hash = hash_to_string(
           OpenSSL::PKCS5.pbkdf2_hmac(password, password_salt, ITERATIONS, DIGEST.length, DIGEST)
       )
       # Оба поля попадут в базу при сохранении (save).
@@ -83,7 +83,7 @@ class User < ApplicationRecord
   end
 
   # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат, для удобства хранения.
-  def self.hash_to_string(password_hash)
+  def hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
   end
 end
