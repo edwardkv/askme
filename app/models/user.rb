@@ -35,13 +35,14 @@ class User < ApplicationRecord
   # пользователя. Если нет — возвращает nil.
   def self.authenticate(email, password)
     # Сперва находим кандидата по email
+    email = email&.downcase
     user = find_by(email: email)
 
     # Если пользователь не найден, возвращает nil
     return nil unless user.present?
 
     # Формируем хэш пароля из того, что передали в метод
-    hashed_password = hash_to_string(
+    hashed_password = User.hash_to_string(
         OpenSSL::PKCS5.pbkdf2_hmac(password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST)
     )
 
@@ -54,13 +55,18 @@ class User < ApplicationRecord
     nil
   end
 
+  # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат, для удобства хранения.
+  def self.hash_to_string(password_hash)
+    password_hash.unpack('H*')[0]
+  end
+
   private
 
   #в базу username пользователей попадали только в нижнем регистре
   #email в нижнем регистре
   def normalize_user
-    self.username = username.downcase unless username.nil?
-    self.email = email.downcase unless email.nil?
+    self.username = username&.downcase
+    self.email = email&.downcase
   end
 
   def encrypt_password
@@ -70,20 +76,15 @@ class User < ApplicationRecord
       #У каждого юзера своя «соль», это значит, что если подобрать перебором пароль
       # одного юзера, нельзя разгадать, по какому принципу
       # зашифрованы пароли остальных пользователей
-      self.password_salt = hash_to_string(OpenSSL::Random.random_bytes(16))
+      self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
 
       # Создаем хэш пароля — длинная уникальная строка, из которой невозможно
       # восстановить исходный пароль. Однако, если правильный пароль у нас есть,
       # мы легко можем получить такую же строку и сравнить её с той, что в базе.
-      self.password_hash = hash_to_string(
+      self.password_hash = User.hash_to_string(
           OpenSSL::PKCS5.pbkdf2_hmac(password, password_salt, ITERATIONS, DIGEST.length, DIGEST)
       )
       # Оба поля попадут в базу при сохранении (save).
     end
-  end
-
-  # Служебный метод, преобразующий бинарную строку в шестнадцатиричный формат, для удобства хранения.
-  def hash_to_string(password_hash)
-    password_hash.unpack('H*')[0]
   end
 end
