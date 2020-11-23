@@ -35,7 +35,7 @@ class User < ApplicationRecord
   # пользователя. Если нет — возвращает nil.
   def self.authenticate(email, password)
     # Сперва находим кандидата по email
-    email = email&.downcase
+    email&.downcase!
     user = find_by(email: email)
 
     # Если пользователь не найден, возвращает nil
@@ -65,8 +65,8 @@ class User < ApplicationRecord
   #в базу username пользователей попадали только в нижнем регистре
   #email в нижнем регистре
   def normalize_user
-    self.username = username&.downcase
-    self.email = email&.downcase
+    username&.downcase!
+    email&.downcase!
   end
 
   def encrypt_password
