@@ -19,6 +19,16 @@
   </div>
 </div>
 
+<div class="user-details">
+  <%# Выводим счетчик вопросов %>
+  <div class="user-statistics container text-center">
+    <div class="column-1-3">
+      <h1 class="title-small"><%= @questions_count %></h1>
+      <p><%= inclination(@questions_count, 'вопрос', 'вопроса', 'вопросов') %></p>
+    </div>
+  </div>
+</div>
+
 <div class="column-3-4">
   <div class="user-questions buffer-both">
     <div class="questions-list">
