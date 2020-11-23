@@ -1,15 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Askme</title>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Хорошие вопросы</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
+<body>
 
-  <body>
+  <div class="header">
+    <div class="container">
+      <div class="header-logo">
+        <h1 class="header-title"><%= link_to "Хорошие вопросы", root_path %></h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <%# Вместо волшебной конструкции yield рельсы подставят то, что срендерит %>
+    <%# шаблон для нужной нам страницы, например, users/show %>
     <%= yield %>
-  </body>
+  </div>
+
+</body>
 </html>
