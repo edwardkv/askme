@@ -7,7 +7,12 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 
-var $ = require('jquery')
+var jQuery = require('jquery')
+
+// include jQuery in global and window scope (so you can access it globally)
+// in your web browser, when you type $('.div'), it is actually refering to global.$('.div')
+global.$ = global.jQuery = jQuery;
+window.$ = window.jQuery = jQuery;
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -15,7 +20,7 @@ var $ = require('jquery')
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-//= require jquery
+//require jquery
 
 $(function(){
     $('#ask-button').click(function(){

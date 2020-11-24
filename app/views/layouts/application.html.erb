@@ -20,8 +20,15 @@
   </div>
 
   <div class="content">
+    <% if flash.any? %>
+      <div class="content-wrapper buffer-both">
+        <% flash.each do |name, message| %>
+          <%= content_tag :div, message, class: "flash-#{name}" %>
+        <% end %>
+      </div>
+    <% end %>
+
     <%# Вместо волшебной конструкции yield рельсы подставят то, что срендерит %>
-    <%# шаблон для нужной нам страницы, например, users/show %>
     <%= yield %>
   </div>
 
