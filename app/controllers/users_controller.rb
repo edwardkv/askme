@@ -52,12 +52,12 @@ class UsersController < ApplicationController
   def show
     @questions = @user.questions.order(create_at: :desc)
 
+    @new_question = @user.questions.build
+
     #счетчики вопросов, ответов
     @questions_count = @questions.count
     @answers_count = @questions.where.not(answer: nil).count
     @without_answered_count = @questions_count - @answers_count
-
-    @new_question = @user.questions.build
   end
 
   private
