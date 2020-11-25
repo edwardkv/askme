@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :load_user, except: [:index, :create, :new]
+  # Проверяем, имеет ли юзер доступ к экшену, делаем это для всех действий, кроме
+  # :index, :new, :create, :show — к ним есть доступ у всех, даже у анонимных юзеров.
+  before_action :authorize_user, except: [:index, :new, :create, :show]
 
   def index
     # Создаём массив из двух болванок пользователей. Вызываем метод # User.new, который создает модель, не записывая её в базу.
@@ -9,10 +12,15 @@ class UsersController < ApplicationController
   end
 
   def new
+    # Если юзер залогинен, отправляем его на главную с сообщением
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+
     @user = User.new
   end
 
   def create
+    redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
+
     # создаём нового пользователя с параметрами
     @user = User.new(user_params)
 
@@ -49,6 +57,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def authorize_user
+    reject_user unless @user == current_user
+  end
 
   def load_user
     # защищаем от повторной инициализации с помощью ||=

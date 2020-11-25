@@ -16,6 +16,18 @@
       <div class="header-logo">
         <h1 class="header-title"><%= link_to "Хорошие вопросы", root_path %></h1>
       </div>
+
+      <div class="header-nav">
+        <% if current_user %>
+          <%= link_to "@#{current_user.username}", user_path(current_user) %> |
+          <%= link_to 'Выйти', log_out_path %>
+        <% else %>
+          <%= link_to 'Зарегистрироваться', sign_up_path,
+                      class: 'button button-light button-small' %>
+          <%= link_to 'Войти', log_in_path,
+                      class: 'button button-light button-small' %>
+        <% end %>
+      </div>
     </div>
   </div>
 
