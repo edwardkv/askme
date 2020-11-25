@@ -77,6 +77,6 @@ class UsersController < ApplicationController
     # :user, у него с помощью метода permit разрешаем
     # набор инпутов. Ничего лишнего, кроме них, в пользователя не попадёт
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :name, :username, :avatar_url)
+                                 :name, :username, :avatar_url, :background_color)
   end
 end

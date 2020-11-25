@@ -1,4 +1,4 @@
-<div class="user-header text-center">
+<div class="user-header text-center" <% if @user.background_color %>style="background-color: <%= @user.background_color %>"<% end %> >
   <h1 class="title-medium">
     <%# Выводим имя пользователя %>
     <%= @user.name %>

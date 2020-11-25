@@ -5,6 +5,7 @@ class User < ApplicationRecord
   DIGEST = OpenSSL::Digest::SHA256.new
   EMAIL_REGEXP = /[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,4}/
   USERNAME_REGEXP = /\A\w+\z/
+  COLOR_REGEXP = /\A\#[\da-fA-Z]{6}\z/
 
   attr_accessor :password
 
@@ -24,6 +25,8 @@ class User < ApplicationRecord
 
   # подтверждения пароля
   validates :password, confirmation: true
+
+  validates :background_color, format: { with: COLOR_REGEXP }
 
   # перед валидацией переводим username в нижний регистр и т.п.
   before_validation :normalize_user
@@ -67,6 +70,9 @@ class User < ApplicationRecord
   def normalize_user
     username&.downcase!
     email&.downcase!
+
+    # присваиваем цвет по умолчанию, если в поле background_color пусто
+    self.background_color = "#106a65" if self.background_color.empty?
   end
 
   def encrypt_password
