@@ -1,37 +1,33 @@
-<%= form_with(model: question, local: true) do |form| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+<div class="form">
+  <%= form_for(@question) do |f| %>
+    <% if @question.errors.any? %>
+      <div class="form-errors">
+        <ul>
+          <% @question.errors.full_messages.each do |message| %>
+            <li class="form-error-message"><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% question.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <%= f.hidden_field :user_id %>
+
+    <div class="form-field">
+      <%= f.label :text, 'Вопрос', class: 'form-label' %>
+      <%= f.text_area :text, class: 'form-textarea' %>
+    </div>
+
+    <% if current_user.present? && current_user == @question.user %>
+      <div class="form-field">
+        <%= f.label :answer, 'Ответ', class: 'form-label' %>
+        <%= f.text_area :answer, class: 'form-textarea' %>
+      </div>
+    <% end %>
+
+    <div class="form-action buffer-both">
+      <%= f.submit 'Сохранить', class: 'button button-dark button-small' %>
+      или
+      <%= link_to "вернуться", user_path(@question.user) %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :create %>
-    <%= form.text_field :create %>
-  </div>
-
-  <div class="field">
-    <%= form.label :edit %>
-    <%= form.text_field :edit %>
-  </div>
-
-  <div class="field">
-    <%= form.label :update %>
-    <%= form.text_field :update %>
-  </div>
-
-  <div class="field">
-    <%= form.label :destroy %>
-    <%= form.text_field :destroy %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

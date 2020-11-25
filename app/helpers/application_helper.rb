@@ -9,8 +9,14 @@ module ApplicationHelper
     end
   end
 
+  def fa_icon(icon_class)
+    content_tag 'span', '', class: "fa fa-#{icon_class}"
+  end
+
+  #склонятор
   def inclination(number, one, few, many)
-    return number = 0 if number.nil? || !number.is_a?(Numeric)
+    #если не число
+    return "" if number.nil? || !number.is_a?(Numeric)
 
     #Рассчитываем остаток от деления на 10 и 100
     ostatok = number % 10
@@ -24,6 +30,5 @@ module ApplicationHelper
     return few if (2..4).include?(ostatok)
 
     return many if  ostatok >= 5 || ostatok == 0
-
   end
 end
