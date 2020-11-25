@@ -24,7 +24,7 @@
 </div>
 
 <div class="user-details">
-  <%# Выводим счетчик вопросов %>
+  <%# Выводим счетчик вопросов, ответов %>
   <div class="user-statistics container text-center">
     <div class="column-1-3">
       <h1 class="title-small"><%= @questions_count %></h1>
@@ -40,8 +40,6 @@
       <h1 class="title-small"><%= @without_answered_count %></h1>
       <p><%= inclination(@without_answered_count, 'неотвеченный', 'неотвеченных', 'неотвеченных') %></p>
     </div>
-
-
   </div>
 </div>
 
