@@ -6,6 +6,7 @@ class User < ApplicationRecord
   EMAIL_REGEXP = /[\w.+-]+@[\w.-]+\.[a-zA-Z]{2,4}/
   USERNAME_REGEXP = /\A\w+\z/
   COLOR_REGEXP = /\A\#[\da-fA-Z]{6}\z/
+  DEFAULT_COLOR = "#106a65"
 
   attr_accessor :password
 
@@ -72,7 +73,7 @@ class User < ApplicationRecord
     email&.downcase!
 
     # присваиваем цвет по умолчанию, если в поле background_color пусто
-    self.background_color = "#106a65" if self.background_color.empty?
+    self.background_color = DEFAULT_COLOR if self.background_color.nil?
   end
 
   def encrypt_password
