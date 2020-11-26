@@ -29,6 +29,8 @@ class User < ApplicationRecord
 
   validates :background_color, format: { with: COLOR_REGEXP }
 
+  validates :avatar_url, format: { with: URI.regexp }, allow_blank: true
+
   # перед валидацией переводим username в нижний регистр и т.п.
   before_validation :normalize_user
   # шифрование пароля
