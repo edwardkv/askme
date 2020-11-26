@@ -29,3 +29,11 @@
   line-height: 15px;
   padding: 7px 15px;
 }
+
+.button-delete {
+    background-color:#B00100;
+}
+
+.button-delete a {
+    color:#D9E6E5;
+}

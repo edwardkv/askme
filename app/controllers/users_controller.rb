@@ -61,6 +61,12 @@ class UsersController < ApplicationController
     @without_answered_count = @questions_count - @answers_count
   end
 
+  def destroy
+    @user.destroy
+    flash[:success] = "Пользователь удалён!"
+    redirect_to root_path
+  end
+
   private
 
   def authorize_user
