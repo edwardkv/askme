@@ -11,6 +11,8 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
+    @question.author_id = current_user.id if current_user.present?
+
     if @question.save
       #После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
