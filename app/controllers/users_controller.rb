@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     # Сохраняем
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_url, notice: 'Пользователь успешно зарегистрирован!'
+      redirect_to root_url, notice: 'Вы успешно зарегистрированы!'
     else
       # Если не удалось по какой-то причине сохранить пользователя, то используем метод render (не redirect!),
       # который заново рисует шаблон, и название шаблона
