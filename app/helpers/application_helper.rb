@@ -15,7 +15,7 @@ module ApplicationHelper
 
   def question_author(author)
     if author.present?
-      link_to("@#{author.username}", user_path(author))
+      link_to "@#{author.username}", user_path(author)
     else
       "неизвестен"
     end
