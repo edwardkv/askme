@@ -62,8 +62,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    #удалим вопросы
-    @user.questions.destroy_all
     #удалим пользователя
     @user.destroy
 
