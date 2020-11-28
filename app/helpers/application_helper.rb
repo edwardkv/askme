@@ -13,6 +13,14 @@ module ApplicationHelper
     content_tag 'span', '', class: "fa fa-#{icon_class}"
   end
 
+  def question_author(author)
+    if author.present?
+      link_to("@#{author.username}", user_path(author))
+    else
+      "неизвестен"
+    end
+  end
+
   #склонятор
   def inclination(number, one, few, many)
     #если не число

@@ -62,7 +62,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    #удалим вопросы
+    @user.questions.destroy_all
+    #удалим пользователя
     @user.destroy
+
     flash[:success] = "Пользователь удалён!"
     redirect_to root_path
   end
@@ -74,8 +78,12 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    # защищаем от повторной инициализации с помощью ||=
-    @user ||= User.find params[:id]
+    begin
+      # защищаем от повторной инициализации с помощью ||=
+      @user ||= User.find params[:id]
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to root_url, alert: 'Пользователь не найден'
+    end
   end
 
   def user_params

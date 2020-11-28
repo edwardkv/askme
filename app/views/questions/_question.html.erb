@@ -10,11 +10,7 @@
     </div>
 
     <div class="question-date">
-      <% if question.author.present? %>
-        автор <%= link_to "@#{question.author.username}", user_path(question.author) %>
-      <% else %>
-        автор неизвестен
-      <% end %>
+     автор <%= question_author(question.author) %>
     </div>
 
     <%# Текст ответа, если он есть %>
