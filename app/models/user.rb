@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  has_many :questions, :dependent => :delete_all
+  has_many :questions, :dependent => :destroy
 
   #проверка что email и username не пустые
   validates :email, :username, presence: true
