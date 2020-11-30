@@ -11,4 +11,4 @@ Rails version 6.0.3
 
 Перед запуском выполнить ```bundle && bundle exec rake db:migrate```
 
-Демо проложения https://edwardask.herokuapp.com/
+Демо приложения https://edwardask.herokuapp.com/
