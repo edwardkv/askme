@@ -10,8 +10,8 @@
     </div>
 
     <%# хэштеги у вопроса, если они есть %>
-    <% if find_hashtags(question) %>
-      <% find_hashtags(question).each do |ht| %>
+    <% if question.find_hashtags %>
+      <% question.find_hashtags.each do |ht| %>
         <div class="question-text text-hashtag">
           <%= link_to ht, hashtag_path(Hashtag.find_by(text: ht)) %>
         </div>
