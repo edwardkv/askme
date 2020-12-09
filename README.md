@@ -10,3 +10,5 @@ Rails version 6.0.3
 ```git clone git@github.com:edwardkv/askme.git```
 
 Перед запуском выполнить ```bundle && bundle exec rake db:migrate```
+
+Демо приложения https://edwardask.herokuapp.com/
