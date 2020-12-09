@@ -41,7 +41,7 @@ module ApplicationHelper
     return many if  ostatok >= 5 || ostatok == 0
   end
 
-  def find_hashtags(string)
-    hashtags = string.scan(HASHTAG_REGEXP).uniq
+  def find_hashtags(question)
+    hashtags = "#{question.text}  #{question.answer}".downcase.scan(HASHTAG_REGEXP).uniq
   end
 end

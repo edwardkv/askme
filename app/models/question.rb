@@ -18,7 +18,7 @@ class Question < ApplicationRecord
   end
 
   def find_hashtags
-    (text.to_s + " " + answer.to_s).scan(HASHTAG_REGEXP).uniq
+    "#{text} #{answer}".downcase.scan(HASHTAG_REGEXP).uniq
   end
 end
 

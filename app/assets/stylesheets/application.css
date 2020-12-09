@@ -19,6 +19,7 @@
  *= require layout
  *= require users
  *= require questions
+ *= require hashtag
  *
  *= require_self
  */
