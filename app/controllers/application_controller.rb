@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  HASHTAG_REGEXP = /#[[:word:]-]+/
   helper_method :current_user
 
   private
@@ -9,5 +10,9 @@ class ApplicationController < ActionController::Base
 
   def reject_user
     redirect_to root_path, alert: 'Доступ запрещен!'
+  end
+
+  def find_hashtag(string)
+    hashtags = string.scan(HASHTAG_REGEXP)
   end
 end

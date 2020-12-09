@@ -10,4 +10,13 @@
       </div>
     </div>
   <% end %>
+
+  <%# Этот код выводит все хэштеги, которые есть в базе %>
+  <div class="buffer-top">
+    <% @hashtags.each do |hashtag| %>
+      <div class="question-text text-hashtag">
+        <%= link_to hashtag.text, hashtag_path(hashtag) %>
+      </div>
+    <% end %>
+  </div>
 </div>

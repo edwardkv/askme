@@ -1,0 +1,9 @@
+<div class="questions-column ">
+  <div class="user-questions buffer-both">
+    <div class="questions-list">
+      <% @hashtag.questions.each do |question| %>
+        <%= render partial: 'questions/question', object: question %>
+      <% end %>
+    </div>
+  </div>
+</div>

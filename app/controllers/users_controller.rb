@@ -5,10 +5,8 @@ class UsersController < ApplicationController
   before_action :authorize_user, except: [:index, :new, :create, :show]
 
   def index
-    # Создаём массив из двух болванок пользователей. Вызываем метод # User.new, который создает модель, не записывая её в базу.
-    # У каждого юзера мы прописали id, чтобы сымитировать реальную
-    # ситуацию – иначе не будет работать хелпер путей
     @users = User.all
+    @hashtags = Hashtag.all
   end
 
   def new

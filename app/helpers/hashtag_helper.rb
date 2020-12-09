@@ -1,0 +1,2 @@
+module HashtagHelper
+end

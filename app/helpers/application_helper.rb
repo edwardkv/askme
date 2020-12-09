@@ -1,4 +1,5 @@
 module ApplicationHelper
+  HASHTAG_REGEXP=/#[[:word:]-]+/
   # Этот метод возвращает ссылку на аватарку пользователя, если она у него есть.
   # Или ссылку на дефолтную аватарку, которую положим в app/assets/images
   def user_avatar(user)
@@ -38,5 +39,9 @@ module ApplicationHelper
     return few if (2..4).include?(ostatok)
 
     return many if  ostatok >= 5 || ostatok == 0
+  end
+
+  def find_hashtags(string)
+    hashtags = string.scan(HASHTAG_REGEXP).uniq
   end
 end
