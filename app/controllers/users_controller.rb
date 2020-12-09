@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @hashtags = Hashtag.all
+    @hashtags = Hashtag.left_joins(:hashtags_questions).where.not('hashtags_questions.hashtag_id': nil)
   end
 
   def new
