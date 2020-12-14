@@ -3,12 +3,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :questions, except: [:show, :new, :index]
-  resource :sessions, only: [:new, :create, :destroy]
+  resource :session, only: [:new, :create, :destroy]
   resources :hashtag, only: [:show]
-
-  get 'sign_up' => 'users#new'
-  get 'log_out' => 'sessions#destroy'
-  get 'log_in' => 'sessions#new'
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
