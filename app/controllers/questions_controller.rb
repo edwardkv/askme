@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
     @question.author_id = current_user.id if current_user.present?
 
     if @question.save
-      @question.add_hashtags
+      #@question.add_hashtags
       #После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   def update
     if @question.update(question_params)
-      @question.add_hashtags
+      #@question.add_hashtags
       #Если обновил вопрос, то тоже редиректим на страницу юзера
       redirect_to user_path(@question.user), notice: 'Вопрос сохранен'
     else

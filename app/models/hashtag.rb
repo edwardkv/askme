@@ -1,7 +1,9 @@
 class Hashtag < ApplicationRecord
-  has_and_belongs_to_many :questions, join_table: :hashtags_questions
+
+  has_and_belongs_to_many :questions, join_table: :hashtags_questions, dependent: :destroy
 
   validates :text, presence: true
+  validates :text, uniqueness: true
 
   # create hashtags for questions
   def self.create!(question, hashtags)
