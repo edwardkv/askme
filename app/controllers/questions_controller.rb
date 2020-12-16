@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
 
     @question.author_id = current_user.id if current_user.present?
 
-    if @question.save
+    if check_captcha(@question) && @question.save
       #@question.add_hashtags
       #После сохранения вопроса редиректим на пользователя
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
@@ -47,6 +47,10 @@ class QuestionsController < ApplicationController
   # посылаем его с помощью метода reject_user
   def authorize_user
     reject_user unless @question.user == current_user
+  end
+
+  def check_captcha(model)
+    current_user.present? || verify_recaptcha(model: model)
   end
 
   # Use callbacks to share common setup or constraints between actions.

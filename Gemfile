@@ -9,6 +9,8 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # Этот гем нужен для сборки js-скриптов на heroku
 gem 'uglifier'
 
+gem 'recaptcha', require: 'recaptcha/rails'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
