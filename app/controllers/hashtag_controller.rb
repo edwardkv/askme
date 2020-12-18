@@ -9,8 +9,9 @@ class HashtagController < ApplicationController
 
   def set_hashtag
     begin
-      @hashtag = Hashtag.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
+      @hashtag = Hashtag.find_by(text: params[:id]) || #по имени
+        Hashtag.find(params[:id])  #по id
+     rescue ActiveRecord::RecordNotFound => e
       redirect_to root_url, alert: 'Тег не найден'
     end
   end

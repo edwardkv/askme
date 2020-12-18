@@ -15,7 +15,7 @@
   <div class="buffer-top">
     <% @hashtags.each do |hashtag| %>
       <div class="question-text text-hashtag">
-        <%= link_to hashtag.text, hashtag_path(hashtag) %>
+        <%= link_to hashtag.text, hashtag_url(hashtag.text) %>
       </div>
     <% end %>
   </div>
