@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @hashtags = Hashtag.left_joins(:hashtags_questions).
       where.not(hashtags_questions: {hashtag_id: nil}).group(:id).order(:text)
     #все теги
-    #@hashtags = Hashtag.all.order(:name)
+    #@hashtags = Hashtag.all.order(:text)
   end
 
   def new
