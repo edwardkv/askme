@@ -12,7 +12,8 @@ Rails version 6.0.3
 
 Демо приложения на хостинге heroku https://edwardask.herokuapp.com/
 
-###Установка
+### Установка
+
 Склонировать ```git clone git@github.com:edwardkv/askme.git```
 
 Перед запуском выполнить ```bundle && bundle exec rake db:migrate``` ```yarn```
