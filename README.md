@@ -19,6 +19,7 @@ Rails version 6.0.3
 Перед запуском выполнить ```bundle && bundle exec rake db:migrate``` ```yarn```
 
 Прописать в переменные окружения ключи для капчи RECAPTCHA_ASKME_PUBLIC_KEY, RECAPTCHA_ASKME_PRIVATE_KEY
+
 Для этого переименовать файл ```.env.example``` в ```.env``` и пропиcать значения.
 
 Запустить локально сервер ```bundle exec rails s``` 
