@@ -18,8 +18,7 @@ class Question < ApplicationRecord
   end
 
   def delete_old_hashtags
-    #не будем удалят хеш теги
-    #Hashtag.includes(:questions).where(questions: { id: nil }).destroy_all
+    Hashtag.includes(:questions).where(questions: { id: nil }).destroy_all
   end
 end
 
