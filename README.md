@@ -22,6 +22,7 @@ Rails version 6.0.3
 Прописать в переменные окружения ключи для капчи RECAPTCHA_ASKME_PUBLIC_KEY, RECAPTCHA_ASKME_PRIVATE_KEY
 
 Для этого переименовать файл ```.env.example``` в ```.env```
+
 ```cp .env.example .env```
 и пропиcать значения.
 
