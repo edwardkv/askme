@@ -15,9 +15,11 @@ Rails version 6.0.3
 ### Установка
 
 Склонировать
+
 ```git clone git@github.com:edwardkv/askme.git```
 
 Перед запуском выполнить
+
 ```bundle && bundle exec rake db:migrate``` 
 ```yarn```
 
@@ -30,6 +32,7 @@ Rails version 6.0.3
 и пропиcать значения.
 
 Запустить локально сервер 
+
 ```bundle exec rails s``` 
 
 Открыть ```http://127.0.0.1:3000```
